@@ -16,6 +16,8 @@ public class User implements UserDetails {
     private boolean active;
     private String DateReg;
     private String DateLastSeen;
+    private String theme;
+    private String language;
 
 
     private String email;
@@ -107,6 +109,22 @@ public class User implements UserDetails {
     public void setActive(boolean active) {this.active = active;}
     public Set<Rol> getRoles() {return roles;}
     public void setRoles(Set<Rol> roles) {this.roles = roles;}
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
     public String getDateReg() {
         return DateReg;

@@ -31,10 +31,12 @@ public class UserService implements UserDetailsService {
             return false;
         }
         user.setActive(false);
-        user.setRoles(Collections.singleton(Rol.USER));
+        user.setRoles(Collections.singleton(Rol.ADMIN));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setDateReg(new Date());
         user.setDateLastSeen(new Date());
+        user.setTheme("WithoutTheme");
+        user.setLanguage("English");
         userRepo.save(user);
         sendMessage(user);
         return true;
@@ -87,7 +89,7 @@ public class UserService implements UserDetailsService {
 
 
 
-    public void updateProfile(User user, String password, String email) {
+    public void updateProfile(User user, String password, String email, String theme, String language) {
     String userEmail=user.getEmail();
         boolean isEmailChanged =(email != null && !email.equals(userEmail)) || (userEmail !=null && !userEmail.equals(email));
         if (isEmailChanged){
@@ -99,6 +101,8 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(password)){
             user.setPassword(password);
         }
+        user.setTheme(theme);
+        user.setLanguage(language);
         userRepo.save(user);
         if(isEmailChanged) {
             sendMessage(user);

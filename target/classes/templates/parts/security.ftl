@@ -6,6 +6,8 @@ known = Session.SPRING_SECURITY_CONTEXT??>
     name=user.getUsername()
     isAdmin=user.isAdmin()
     currentUserId=user.getId()
+    theme=user.getTheme()
+    language=user.getLanguage()
     >
 <#else>
 <#assign

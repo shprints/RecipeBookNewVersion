@@ -1,5 +1,4 @@
 <#import "parts/common.ftl" as c>
-<#include "parts/security.ftl">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
@@ -7,17 +6,9 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <meta charset="utf-8">
 <@c.page>
-    <#if theme=="Fruit">
-        <body background="../static/fruit.jpg" style="background-size: 100%;">
-    <#else>
-        <#if theme=="Vegetables">
-            <body background="../static/vegetables.jpg" style="background-size: 100%;">
-        <#else>
-                <body>
-        </#if>
-    </#if>
+<body>
 
-<form action="/Recipes" method="post" enctype="multipart/form-data">
+<form action="/UserPage" method="post" enctype="multipart/form-data">
     <input type="hidden" name="summId" value="${summ.id}">
     <p></p>
 
@@ -47,7 +38,11 @@
             font-weight: bold;
         }
     </style>
+    <div id="rating_arr">
+        <div class="stars_progress"  title="${rating}"></div><p class="progress_stars" id="p3"></p>
 
+        <div id="sum_stars" title="${summ.getRatings()}"></div><p id="sum_progress"></p>
+    </div>
     <script type="text/javascript">
         $(document).ready(function() {
             if($('.stars_progress').attr('title') != 0){
@@ -108,106 +103,45 @@
             }
         });
     </script>
-
     <div></div>
-    <#if theme=="Fruit">
-        <div class="col-9 rounded" style="display: inline-block; background: url(../static/fruitBackground.jpg);">
-    <#else>
-        <#if theme=="Vegetables">
-            <div class="col-9 rounded" style="display: inline-block; background: url(../static/vegetablesBackground.jpg);">
-        <#else>
-                <div class="col-9 rounded" style="display: inline-block; ">
-        </#if>
-    </#if>
-    <div class="text-center"> <h2><u>${summ.title}</u></h2></div>
-    <div>
-             <#if summ.imageURL!="">
-                 <img  class="img-fluid rounded float-left text-center" style="width: 300px; height: 200px; border: solid 4px #FFCC00" src="${summ.imageURL?if_exists}" >
-             <#else>
-             <img  class="img-fluid rounded float-left text-center" style="width: 300px; height: 200px; border: solid 4px #FFCC00" src="http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg" >
-             </#if>
+    <div class="text-center"> <h3><u>${summ.title}</u></h3>
+        <br><em>Description: ${summ.descript}</em>
+        <br><em>Main ingredients: ${summ.number}</em>
 
-    </div>
-    <div style="margin-left: 350px;">
-    <#if language=="Russian">
-        <b>Описание:</b> ${summ.descript}
-        <br><b>Основные ингридиенты:</b> ${summ.number}
-        <br><b>Ваш рейтинг:</b>
-        <div id="rating_arr">
-            <div class="stars_progress"  title="${rating}"></div><p class="progress_stars" id="p3"></p>
-        </div>
-        <br><b>Общий рейтинг:</b>
-        <div id="rating_arr">
-        <#--<div class="stars_progress"  title="${rating}"></div><p class="progress_stars" id="p3"></p>-->
-            <div id="sum_stars" title="${summ.getRatings()}"></div><p id="sum_progress"></p>
-        </div>
-    <#else>
-        <b>Description:</b> ${summ.descript}
-        <br><b>Main ingredients:</b> ${summ.number}
-        <br><b>Your rating:</b>
-        <div id="rating_arr">
-            <div class="stars_progress"  title="${rating}"></div><p class="progress_stars" id="p3"></p>
-        </div>
-        <br><b>General rating:</b>
-        <div id="rating_arr">
-        <#--<div class="stars_progress"  title="${rating}"></div><p class="progress_stars" id="p3"></p>-->
-            <div id="sum_stars" title="${summ.getRatings()}"></div><p id="sum_progress"></p>
-        </div>
-    </#if>
-    </div>
-</div>
-    <div>
         <p></p>
         <style>
             p{
                 text-align: justify;
             }
         </style>
-        <p class="text-left" ">
-        <script>
-            $(document).ready(function () {
-                createMarkdown(document.getElementById("area"));
-                function createMarkdown(textarea) {
-                    simplemde = new SimpleMDE({
-                        element: textarea
-                    })}
-            });
-        </script>
-        <#if theme=="Fruit">
-        <br> <div class="form-group text-left" style="background: url(../static/fruitBackground.jpg);">
-            <textarea class="form-control" id="area" rows="3" name="text" >${summ.text}</textarea>
+        <p class="text-left">
+            <script>
+                $(document).ready(function () {
+                    createMarkdown(document.getElementById("area"));
+                    function createMarkdown(textarea) {
+                        simplemde = new SimpleMDE({
+                            element: textarea
+                        })}
+                });
+            </script>
+            <br> <div class="form-group text-left">
+            <textarea class="form-control" id="area" rows="3" name="text">${summ.text}</textarea>
         </div>
-        <#else>
-            <#if theme=="Vegetables">
-            <br> <div class="form-group text-left" style="background: url(../static/vegetablesBackground.jpg);">
-                <textarea class="form-control" id="area" rows="3" name="text" >${summ.text}</textarea>
-            </div>
-            <#else>
-                <br> <div class="form-group text-left" >
-                <textarea class="form-control" id="area" rows="3" name="text" >${summ.text}</textarea>
-            </div>
-            </#if>
-        </#if>
-
         </p>
-
+    <div>
+                   <#if summ.filename??>
+                       <img src="/img/${summ.filename}">
+                   </#if>
+    </div>
     </div>
     <p></p>
     <br>
     <footer class="pt-4 my-md5 pt-md-3 border-top"></footer>
-    <#if language=="Russian">
-    <b><em><h4> Коментарии:</h4></em></b>
-    <div class="form-inline my-2 my-lg-2">
-        <br>
-        <input type="text" name="commentar" class="form-control  mr-sm-2" placeholder="Текст" size="90%"/>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-    <#else>
     <b><em><h4> Comments:</h4></em></b>
     <div class="form-inline my-2 my-lg-2">
         <br>
         <input type="text" name="commentar" class="form-control  mr-sm-2" placeholder="Text" size="90%"/>
-        <button type="submit" class="btn btn-primary">Send</button>
-    </#if>
+        <button type="submit" class="btn btn-primary">Save</button>
 
     </div>
     <p></p>
@@ -225,15 +159,9 @@
 
     <input class="form-control" type="hidden" value="${summ.id}" id="summId" size="50%">
 
-    <#if language=="Russian">
-     <div class="text-center">
-         <a href="/Recipes"><u>Назад</u></a>
-     </div>
-    <#else>
     <div class="text-center">
-        <a href="/Recipes"><u>Return</u></a>
+        <a href="/UserPage"><u>Return</u></a>
     </div>
-    </#if>
 </form>
 </body>
 </@c.page>

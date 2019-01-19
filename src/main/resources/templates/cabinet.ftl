@@ -22,7 +22,7 @@
     </form>
 
     <p class="lead  my-3">
-    <a href="/NewRecipe" class="btn btn-outline-primary">Create of recipe</a>
+    <a href="/Summery" class="btn btn-outline-primary">Create of recipe</a>
 
         <button onclick="onClickBtnDeleteSummery()" class="btn btn-outline-primary">Delete</button>
         <a class="btn btn-outline-primary" href="/user/profile">Edit profile</a>
@@ -38,7 +38,6 @@
             <th scope="col">Title</th>
             <th scope="col">Descript</th>
             <th scope="col">Main ingredients</th>
-            <th scope="col">Rating</th>
             <th scope="col">Tags</th>
         </tr>
         </thead>
@@ -48,18 +47,11 @@
         <th>
             <input type="checkbox" value="${s.id}">
         </th>
-        <td><a href="/Recipes/Page/${s.id}"><u><em>${s.title}</em></u></a></td>
+        <td><a href="/UserPage/Page/${s.id}"><u><em>${s.title}</em></u></a></td>
         <td>${s.descript}</td>
         <td>${s.number}</td>
-        <td>
-        <#if s.getRatings() == 0>
-            <p>without rating</p>
-        <#else>
-            ${s.getRatings()} out of 5.0
-        </#if>
-        </td>
     <td><#list s.tags as tag>
-        <a href="/Recipes/Page/${s.id}">${tag.tags} </a>
+        <a href="/UserPage/Page/${s.id}">${tag.tags} </a>
     <#else >
                 No tags
     </#list>
@@ -67,15 +59,8 @@
     </tr>
     </#list>
         <script>
-            var checkVar = false;
             function onClickBtnAllSummeries(){
-                if (checkVar == false) {
-                    $('body input:checkbox').prop('checked', true);
-                    checkVar = !checkVar;
-                } else {
-                    $('body input:checkbox').prop('checked', false);
-                    checkVar = !checkVar;
-                }
+                $('body input:checkbox').prop('checked', true)
             }
             function getArrayIdSummeries(){
                 arrayIdSummeries = [];

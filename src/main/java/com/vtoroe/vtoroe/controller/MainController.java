@@ -50,15 +50,19 @@ public class MainController {
     public String getProfile(Model model,@AuthenticationPrincipal User user){
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
+        model.addAttribute("theme", user.getTheme());
+        model.addAttribute("language", user.getLanguage());
         return "profile";
     }
     @PostMapping("/user/profile")
     public String updateProfile(
             @AuthenticationPrincipal User user,
             @RequestParam String password,
-            @RequestParam String email
+            @RequestParam String email,
+            @RequestParam String theme,
+            @RequestParam String language
     ){
-        userService.updateProfile(user,password,email);
+        userService.updateProfile(user,password,email,theme,language);
         return "redirect:/cabinet";
     }
 

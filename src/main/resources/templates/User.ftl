@@ -5,22 +5,23 @@
 <@c.page>
 <body class="bg-light">
 <div class="list-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+
     <h1 class="display-6">
         <em>
-            Personal Area</em></h1>
+            Personal area of user: ${user.username}</em></h1>
     <p class="lead  my-1">
         <em>
-
-            On this page, the user can create new notes, and delete them, edit existing notes.
-            This page contains only abstract ones. You can dispose of them at your own discretion.
+            On this page, administrator can view, delete and edit user recipes.
         </em>
     </p>
+
+
     <footer class="pt-4 my-md5 pt-md-3 border-top"></footer>
 
     <div class="mb-0"><h2 class="h3">
         <i>Search by title</i></h2>
         <label></label>
-      <form method="post" action="/Filter" class="form-inline my-2 my-lg-2">
+        <form method="post" action="/Filter" class="form-inline my-2 my-lg-2">
         <input type="text" name="ffilterr" class="form-control mr-sm-2" placeholder="Search"  size="60%">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -30,13 +31,15 @@
 
 <thead>
 <tr>
+
     <th>
         <button onclick="onClickBtnAllSummeries()" class="btn btn-outline-primary">All</button>
     </th>
     <th scope="col">Title</th>
     <th scope="col">Descript</th>
-    <th scope="col">Number</th>
+    <th scope="col">Main ingredients</th>
     <th scope="col">Tags</th>
+
 </tr>
 </thead>
 <tbody>
@@ -99,8 +102,9 @@
 </body>
     <footer class="pt-4 my-md5 pt-md-3 border-top"></footer>
     <footer class="footer">
+
         <div class="container text-center">
-            © Company 2017-2018
+            © Company 2019. Shprints Konstantsin
         </div>
     </footer>
 
